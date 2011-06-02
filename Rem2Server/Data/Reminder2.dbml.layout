@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Reminder2">
+  <DataContextMoniker Name="/Reminder2DataContext" />
+  <nestedChildShapes>
+    <classShape Id="4958bb54-dc29-4a1a-b1e0-731e4b45c10f" absoluteBounds="0.625, 2.5, 2, 1.9631982421875">
+      <DataClassMoniker Name="/Reminder2DataContext/Task" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6ece6833-25c4-45e7-bca3-1aec2fe1fadc" absoluteBounds="0.64000000000000012, 2.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5e0ae0e1-7e4b-4123-9df3-2d1bd7d089da" absoluteBounds="3.75, 2.625, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/Reminder2DataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e41eb4f3-aaab-4047-a0d8-93d043a1159e" absoluteBounds="3.765, 3.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.75 : 3.51044840494792); (2.625 : 3.51044840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/Reminder2DataContext/User/User_Task" />
+      <nodes>
+        <classShapeMoniker Id="5e0ae0e1-7e4b-4123-9df3-2d1bd7d089da" />
+        <classShapeMoniker Id="4958bb54-dc29-4a1a-b1e0-731e4b45c10f" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

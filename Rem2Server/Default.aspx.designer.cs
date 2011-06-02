@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Rem2Server {
+namespace LH.Reminder2.Server {
     
     
     public partial class _Default {
