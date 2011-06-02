@@ -7,13 +7,32 @@
     <title>Reminder2 server</title>
 </head>
 <body>
+    <form id="form1" runat="server">
 <h1>Reminder 2 server</h1>
 <p>This is a Reminder2 server.</p>
 
-<p>Quick links:</p>
+<h2>Quick links:</h2>
 <p>
     <a href="GetTasks.ashx">GetTasks.ashx</a>
 </p>
+
+<h2>Create new user</h2>
+<table>
+    <tr>
+        <td>User name</td>
+        <td><asp:TextBox ID="userNameTextBox" runat="server"></asp:TextBox></td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td><asp:TextBox ID="passwordTextBox" runat="server"></asp:TextBox></td>
+    </tr>
+    <tr><td colspan="2">
+        <asp:Button ID="createUserButton" Text="Create user" Width="100%" 
+            runat="server" onclick="createUserButton_Click" />
+    </td></tr>
+</table>
+
+</form>
 
 </body>
 </html>

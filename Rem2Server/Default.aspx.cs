@@ -19,5 +19,12 @@ namespace LH.Reminder2.Server
         {
 
         }
+
+        protected void createUserButton_Click(object sender, EventArgs e)
+        {
+            MembershipCreateStatus dummy;
+            Membership.Provider.CreateUser(userNameTextBox.Text, passwordTextBox.Text,
+                "", "", "", true, null, out dummy);
+        }
     }
 }

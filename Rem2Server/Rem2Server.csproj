@@ -60,6 +60,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\HTTPAuthModule.cs" />
+    <Compile Include="Auth\MembershipProvider.cs" />
     <Compile Include="Data\Reminder2.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
