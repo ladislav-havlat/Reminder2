@@ -1,2 +1,4 @@
 
 *.suo
+/Rem2Server/bin
+/Rem2Server/obj
