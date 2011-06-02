@@ -22,6 +22,7 @@ namespace LH.Reminder2.Server
         {
             context.Response.ContentType = "application/xml";
             XmlTextWriter respWriter = new XmlTextWriter(context.Response.Output);
+            respWriter.Formatting = Formatting.Indented;
 
             respWriter.WriteStartDocument(true);
             respWriter.WriteStartElement("reminder");
@@ -29,18 +30,19 @@ namespace LH.Reminder2.Server
             respWriter.WriteStartElement("tasks");
             Reminder2DataContext ctx = new Reminder2DataContext();
             var tasks = from Task t in ctx.Tasks
+                        where t.User.UserName == context.User.Identity.Name
                         select t;
             foreach (Task t in tasks)
             {
                 respWriter.WriteStartElement("task");
                 respWriter.WriteAttributeString("id", t.idTask.ToString());
                 respWriter.WriteElementString("message", t.Message);
-                respWriter.WriteElementString("dateTime", t.DateTime.ToString("YYYY-MM-dd HH:mm:ss"));
-                respWriter.WriteElementString("userName", t.User.UserName);
+                respWriter.WriteElementString("dateTime", t.DateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                respWriter.WriteEndElement();
             }
             respWriter.WriteEndElement();
 
-            respWriter.WriteEndElement();
+            respWriter.WriteEndDocument();
         }
 
         public bool IsReusable

@@ -40,7 +40,9 @@ namespace LH.Reminder2.Server.Auth
                 User u = new User()
                 {
                     UserName = username,
-                    Password = password
+                    Password = password,
+                    FirstName = "",
+                    LastName = ""
                 };
                 ctx.Users.InsertOnSubmit(u);
                 ctx.SubmitChanges();
