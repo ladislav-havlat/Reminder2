@@ -175,10 +175,7 @@ namespace LH.Reminder2.Server.Auth
             }
 
             //check if the user already exists
-            var exists = from User u in ctx.Users
-                         where u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase)
-                         select new object();
-            if (exists.Count() > 0)
+            if (ctx.Users.FirstOrDefault(u => u.UserName == userName) != null)
             {
                 status = MembershipCreateStatus.DuplicateUserName;
                 return null;

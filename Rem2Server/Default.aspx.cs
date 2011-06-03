@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using Auth=LH.Reminder2.Server.Auth;
 
 namespace LH.Reminder2.Server
 {
@@ -22,9 +23,12 @@ namespace LH.Reminder2.Server
 
         protected void createUserButton_Click(object sender, EventArgs e)
         {
-            MembershipCreateStatus dummy;
-            Membership.Provider.CreateUser(userNameTextBox.Text, passwordTextBox.Text,
-                "", "", "", true, null, out dummy);
+            Auth.Rem2MembershipProvider provider = Membership.Provider as Auth.Rem2MembershipProvider;
+            MembershipCreateStatus status;
+
+            provider.CreateUser(userNameTextBox.Text, passwordTextBox.Text, emailTextBox.Text, 
+                firstNameTextBox.Text, lastNameTextBox.Text, out status);
+            statusLabel.Text = status.ToString();
         }
     }
 }

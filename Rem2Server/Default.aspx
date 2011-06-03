@@ -23,12 +23,27 @@
         <td><asp:TextBox ID="userNameTextBox" runat="server"></asp:TextBox></td>
     </tr>
     <tr>
+        <td>E-mail</td>
+        <td><asp:TextBox ID="emailTextBox" runat="server"></asp:TextBox></td>
+    </tr>
+    <tr>
+        <td>First name</td>
+        <td><asp:TextBox ID="firstNameTextBox" runat="server"></asp:TextBox></td>
+    </tr>
+    <tr>
+        <td>Last name</td>
+        <td><asp:TextBox ID="lastNameTextBox" runat="server"></asp:TextBox></td>
+    </tr>
+    <tr>
         <td>Password</td>
         <td><asp:TextBox ID="passwordTextBox" runat="server"></asp:TextBox></td>
     </tr>
     <tr><td colspan="2">
         <asp:Button ID="createUserButton" Text="Create user" Width="100%" 
             runat="server" onclick="createUserButton_Click" />
+    </td></tr>
+    <tr><td colspan="2">
+        <asp:Label ID="statusLabel" Text=" " runat="server" />
     </td></tr>
 </table>
 
