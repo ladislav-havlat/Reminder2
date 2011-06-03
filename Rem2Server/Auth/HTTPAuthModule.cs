@@ -60,10 +60,11 @@ namespace LH.Reminder2.Server.Auth
             try
             {
                 string authHeader = context.Request.Headers["Authorization"];
-                if (!string.IsNullOrEmpty(authHeader))
+                if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Basic"))
                 {
                     string encodedCredentials = authHeader.Substring(6).Trim();
-                    string decodedCredentials = Encoding.UTF8.GetString(Convert.FromBase64String(encodedCredentials));
+                    string decodedCredentials = context.Request.ContentEncoding.GetString(
+                        Convert.FromBase64String(encodedCredentials));
                     string[] credentials = decodedCredentials.Split(':');
                     if (credentials.Length == 2)
                     {
