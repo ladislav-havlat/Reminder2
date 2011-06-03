@@ -253,7 +253,7 @@ namespace LH.Reminder2.Server.Data
 			}
 		}
 		
-		[Association(Name="User_Task", Storage="_User", ThisKey="idUser", IsForeignKey=true)]
+		[Association(Name="rem2User_Task", Storage="_User", ThisKey="idUser", IsForeignKey=true)]
 		public User User
 		{
 			get
@@ -324,6 +324,8 @@ namespace LH.Reminder2.Server.Data
 		
 		private string _LastName;
 		
+		private string _Email;
+		
 		private EntitySet<Task> _Tasks;
 		
     #region Extensibility Method Definitions
@@ -340,6 +342,8 @@ namespace LH.Reminder2.Server.Data
     partial void OnFirstNameChanged();
     partial void OnLastNameChanging(string value);
     partial void OnLastNameChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
     #endregion
 		
 		public User()
@@ -448,7 +452,27 @@ namespace LH.Reminder2.Server.Data
 			}
 		}
 		
-		[Association(Name="User_Task", Storage="_Tasks", OtherKey="idUser")]
+		[Column(Storage="_Email", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[Association(Name="rem2User_Task", Storage="_Tasks", OtherKey="idUser")]
 		public EntitySet<Task> Tasks
 		{
 			get

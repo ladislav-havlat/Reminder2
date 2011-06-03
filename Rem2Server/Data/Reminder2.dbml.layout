@@ -8,16 +8,16 @@
         <elementListCompartment Id="6ece6833-25c4-45e7-bca3-1aec2fe1fadc" absoluteBounds="0.64000000000000012, 2.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="5e0ae0e1-7e4b-4123-9df3-2d1bd7d089da" absoluteBounds="3.75, 2.625, 2, 1.7708968098958331">
+    <classShape Id="3145d6ea-1032-4163-a586-f083d690350c" absoluteBounds="3.25, 2.5, 2, 1.9631982421875">
       <DataClassMoniker Name="/Reminder2DataContext/User" />
       <nestedChildShapes>
-        <elementListCompartment Id="e41eb4f3-aaab-4047-a0d8-93d043a1159e" absoluteBounds="3.765, 3.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="45633643-88b1-4196-80dd-897177fd8807" absoluteBounds="3.265, 2.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.75 : 3.51044840494792); (2.625 : 3.51044840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/Reminder2DataContext/User/User_Task" />
+    <associationConnector edgePoints="[(3.25 : 3.48159912109375); (2.625 : 3.48159912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Reminder2DataContext/User/rem2User_Task" />
       <nodes>
-        <classShapeMoniker Id="5e0ae0e1-7e4b-4123-9df3-2d1bd7d089da" />
+        <classShapeMoniker Id="3145d6ea-1032-4163-a586-f083d690350c" />
         <classShapeMoniker Id="4958bb54-dc29-4a1a-b1e0-731e4b45c10f" />
       </nodes>
     </associationConnector>

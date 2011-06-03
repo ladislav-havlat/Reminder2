@@ -9,7 +9,7 @@
       <Column Name="DateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Checked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Deleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="User_Task" Member="User" ThisKey="idUser" Type="User" IsForeignKey="true" />
+      <Association Name="rem2User_Task" Member="User" ThisKey="idUser" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.rem2Users" Member="Users">
@@ -19,7 +19,8 @@
       <Column Name="Password" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="FirstName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="LastName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Association Name="User_Task" Member="Tasks" OtherKey="idUser" Type="Task" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="rem2User_Task" Member="Tasks" OtherKey="idUser" Type="Task" />
     </Type>
   </Table>
 </Database>
