@@ -21,6 +21,10 @@ namespace LH.Reminder2.Server
     {
         private XmlTextWriter outputWriter;
 
+        /// <summary>
+        /// Processes the HTTP request.
+        /// </summary>
+        /// <param name="context">Context of the HTTP operation.</param>
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "application/xml";
@@ -39,23 +43,22 @@ namespace LH.Reminder2.Server
                                 where u.UserName == context.User.Identity.Name
                                 select u.idUser;
                     if (query.Count() > 0)
-                    {
                         try
                         {
-                            Task t = new Task()
+                            Task task = new Task()
                             {
                                 Message = this.Message,
                                 DateTime = this.DateTime,
                                 idUser = query.First()
                             };
-                            dataCtx.Tasks.InsertOnSubmit(t);
+                            dataCtx.Tasks.InsertOnSubmit(task);
                             dataCtx.SubmitChanges();
                             WriteOutputStatus(200, "OK.");
 
                             outputWriter.WriteStartElement("task");
                             try
                             {
-                                outputWriter.WriteElementString("id", t.idTask.ToString());
+                                outputWriter.WriteElementString("id", task.idTask.ToString());
                             }
                             finally
                             {
@@ -66,7 +69,6 @@ namespace LH.Reminder2.Server
                         {
                             WriteOutputStatus(500, string.Format("Couldn't add task. {0}", ex.Message));
                         }
-                    }
                     else
                         WriteOutputStatus(500, "Invalid user Id.");
                 }
@@ -80,14 +82,18 @@ namespace LH.Reminder2.Server
             }
         }
 
+        /// <summary>
+        /// Indicates whether the instance is reusable by another request.
+        /// </summary>
         public bool IsReusable
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
 
+        /// <summary>
+        /// Checks for input POST parameters.
+        /// </summary>
+        /// <returns>True if all required parameters are present, false otherwise.</returns>
         protected bool CheckParams()
         {
             HttpContext ctx = HttpContext.Current;
@@ -95,11 +101,17 @@ namespace LH.Reminder2.Server
                    ctx.Request.Form["dateTime"] != null;
         }
 
+        /// <summary>
+        /// Extracts message ot the task from the input parameters.
+        /// </summary>
         protected string Message
         {
             get { return HttpContext.Current.Request.Form["message"]; }
         }
 
+        /// <summary>
+        /// Extracts DateTime of the task from the input parameters.
+        /// </summary>
         protected DateTime DateTime
         {
             get
@@ -112,6 +124,11 @@ namespace LH.Reminder2.Server
             }
         }
 
+        /// <summary>
+        /// Writes a status message to the output stream.
+        /// </summary>
+        /// <param name="code">Status code.</param>
+        /// <param name="status">Status message.</param>
         private void WriteOutputStatus(int code, string status)
         {
             outputWriter.WriteStartElement("status");
