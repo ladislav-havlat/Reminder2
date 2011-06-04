@@ -70,6 +70,8 @@ namespace LH.Reminder2.Server
                     else
                         WriteOutputStatus(500, "Invalid user Id.");
                 }
+                else
+                    WriteOutputStatus(501, "One or more of the required parameters is missing.");
             }
             finally
             {

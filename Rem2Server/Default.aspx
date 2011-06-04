@@ -49,5 +49,22 @@
 
 </form>
 
+<form action="AddTask.ashx" method="post">
+<h2>Add task</h2>
+<table>
+    <tr>
+        <td>Message</td>
+        <td><input name="message" /></td>
+    </tr>
+    <tr>
+        <td>DateTime</td>
+        <td><input name="dateTime" /></td>
+    </tr>
+    <tr><td colspan="2">
+        <input type="submit" value="Proceed" style="width: 100%"/>
+    </td></tr>
+</table>
+</form>
+
 </body>
 </html>
