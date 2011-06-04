@@ -64,14 +64,14 @@ namespace LH.Reminder2.Server
                         }
                         catch (Exception ex)
                         {
-                            WriteOutputStatus(501, string.Format("Couldn't add task. {0}", ex.Message));
+                            WriteOutputStatus(500, string.Format("Couldn't add task. {0}", ex.Message));
                         }
                     }
                     else
                         WriteOutputStatus(500, "Invalid user Id.");
                 }
                 else
-                    WriteOutputStatus(501, "One or more of the required parameters is missing.");
+                    WriteOutputStatus(400, "One or more of the required parameters is missing.");
             }
             finally
             {
