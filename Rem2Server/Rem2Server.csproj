@@ -60,6 +60,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddTask.ashx.cs">
+      <DependentUpon>AddTask.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Auth\HTTPAuthModule.cs" />
     <Compile Include="Auth\MembershipProvider.cs" />
     <Compile Include="Data\Reminder2.designer.cs">
@@ -93,6 +96,7 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddTask.ashx" />
     <None Include="Data\Reminder2.dbml.layout">
       <DependentUpon>Reminder2.dbml</DependentUpon>
     </None>
