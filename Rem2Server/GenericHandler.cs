@@ -69,7 +69,7 @@ namespace LH.Reminder2.Server
                     InternalProcessRequest(context);
                 }
                 else
-                    WriteOutputStatus(CommonStatusCode.BadRequest, "One or more of the required parameters is missing.");
+                    WriteOutputStatus(CommonStatusCode.BadRequest, "One or more of the required parameters is missing or invalid.");
             }
             finally
             {

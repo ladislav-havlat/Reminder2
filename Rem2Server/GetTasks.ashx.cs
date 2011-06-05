@@ -38,6 +38,7 @@ namespace LH.Reminder2.Server
                         //select tasks that are either less than 2 days old or not checked
                         tasks = from Task t in ctx.Tasks
                                 where t.User.UserName == context.User.Identity.Name &&
+                                      !t.Deleted &&
                                       (utcNow - t.DateTime < new TimeSpan(2, 0, 0, 0) || !t.Checked)
                                 select t;
                         break;
@@ -46,6 +47,7 @@ namespace LH.Reminder2.Server
                         //select all unchecked tasks
                         tasks = from Task t in ctx.Tasks
                                 where t.User.UserName == context.User.Identity.Name &&
+                                      !t.Deleted && 
                                       !t.Checked
                                 select t;
                         break;
