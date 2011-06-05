@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.IO;
 using System.Xml.Linq;
+using System.Windows.Forms;
 
 namespace LH.Reminder2.Client.Data
 {
@@ -15,6 +16,7 @@ namespace LH.Reminder2.Client.Data
         private DateTime dateTime;
         private bool isChecked;
 
+        #region Public properties
         public int Id
         {
             get { return id; }
@@ -37,6 +39,16 @@ namespace LH.Reminder2.Client.Data
         {
             get { return isChecked; }
             set { isChecked = value; }
+        }
+        #endregion
+
+        public ListViewItem ToListViewItem()
+        {
+            ListViewItem item = new ListViewItem();
+            item.Text = message;
+            item.SubItems.Add(dateTime.ToString());
+            item.SubItems.Add(IsChecked.ToString());
+            return item;
         }
     }
 

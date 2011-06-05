@@ -42,8 +42,15 @@ namespace LH.Reminder2.Client
                 if (response != null)
                     Invoke(new MethodInvoker(delegate() {
                         localTasks.ReadXmlStream(response.GetResponseStream());
+                        tasksListBox.VirtualListSize = localTasks.Count;
                     }));
             }
+        }
+
+        private void tasksListBox_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            if (e.ItemIndex >= 0 && e.ItemIndex < localTasks.Count)
+                e.Item = localTasks[e.ItemIndex].ToListViewItem();
         }
     }
 }

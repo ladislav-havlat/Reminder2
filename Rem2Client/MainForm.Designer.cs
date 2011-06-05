@@ -67,12 +67,15 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
+            this.tasksListBox.FullRowSelect = true;
             this.tasksListBox.Location = new System.Drawing.Point(12, 64);
             this.tasksListBox.Name = "tasksListBox";
             this.tasksListBox.Size = new System.Drawing.Size(646, 282);
             this.tasksListBox.TabIndex = 2;
             this.tasksListBox.UseCompatibleStateImageBehavior = false;
             this.tasksListBox.View = System.Windows.Forms.View.Details;
+            this.tasksListBox.VirtualMode = true;
+            this.tasksListBox.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.tasksListBox_RetrieveVirtualItem);
             // 
             // columnHeader1
             // 
