@@ -17,90 +17,60 @@ namespace LH.Reminder2.Server
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-    public class AddTask : IHttpHandler
+    public class AddTask : GenericHandler
     {
-        private XmlTextWriter outputWriter;
-
         /// <summary>
         /// Processes the HTTP request.
         /// </summary>
         /// <param name="context">Context of the HTTP operation.</param>
-        public void ProcessRequest(HttpContext context)
+        protected override void InternalProcessRequest(HttpContext context)
         {
-            context.Response.ContentType = "application/xml";
-            outputWriter = new XmlTextWriter(context.Response.Output);
             Reminder2DataContext dataCtx = new Reminder2DataContext();
-
-            outputWriter.Formatting = Formatting.Indented;
-
-            try
-            {
-                outputWriter.WriteStartDocument(true);
-                outputWriter.WriteStartElement("reminder");
-                if (CheckParams())
+            var query = from User u in dataCtx.Users
+                        where u.UserName == context.User.Identity.Name
+                        select u.idUser;
+            if (query.Count() > 0)
+                try
                 {
-                    var query = from User u in dataCtx.Users
-                                where u.UserName == context.User.Identity.Name
-                                select u.idUser;
-                    if (query.Count() > 0)
-                        try
-                        {
-                            Task task = new Task()
-                            {
-                                Message = this.Message,
-                                DateTime = this.DateTime,
-                                idUser = query.First()
-                            };
-                            dataCtx.Tasks.InsertOnSubmit(task);
-                            dataCtx.SubmitChanges();
-                            WriteOutputStatus(200, "OK.");
+                    Task task = new Task()
+                    {
+                        Message = this.Message,
+                        DateTime = this.DateTime,
+                        idUser = query.First()
+                    };
+                    dataCtx.Tasks.InsertOnSubmit(task);
+                    dataCtx.SubmitChanges();
+                    WriteOutputStatus(200, "OK.");
 
-                            outputWriter.WriteStartElement("task");
-                            try
-                            {
-                                outputWriter.WriteElementString("id", task.idTask.ToString());
-                            }
-                            finally
-                            {
-                                outputWriter.WriteEndElement();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            WriteOutputStatus(500, string.Format("Couldn't add task. {0}", ex.Message));
-                        }
-                    else
-                        WriteOutputStatus(500, "Invalid user Id.");
+                    XmlOutput.WriteStartElement("task");
+                    try
+                    {
+                        XmlOutput.WriteAttributeString("id", task.idTask.ToString());
+                    }
+                    finally
+                    {
+                        XmlOutput.WriteEndElement();
+                    }
                 }
-                else
-                    WriteOutputStatus(400, "One or more of the required parameters is missing.");
-            }
-            finally
-            {
-                outputWriter.WriteEndDocument();
-                outputWriter.Flush();
-            }
-        }
-
-        /// <summary>
-        /// Indicates whether the instance is reusable by another request.
-        /// </summary>
-        public bool IsReusable
-        {
-            get { return false; }
+                catch (Exception ex)
+                {
+                    WriteOutputStatus(CommonStatusCode.ServerError, string.Format("Couldn't add task. {0}", ex.Message));
+                }
+            else
+                WriteOutputStatus(CommonStatusCode.ServerError, "Invalid user Id.");
         }
 
         /// <summary>
         /// Checks for input POST parameters.
         /// </summary>
         /// <returns>True if all required parameters are present, false otherwise.</returns>
-        protected bool CheckParams()
+        protected override bool CheckParams(HttpContext ctx)
         {
-            HttpContext ctx = HttpContext.Current;
             return ctx.Request.Form["message"] != null &&
                    ctx.Request.Form["dateTime"] != null;
         }
 
+        #region Input parameters parsing
         /// <summary>
         /// Extracts message ot the task from the input parameters.
         /// </summary>
@@ -123,24 +93,6 @@ namespace LH.Reminder2.Server
                     return default(DateTime);
             }
         }
-
-        /// <summary>
-        /// Writes a status message to the output stream.
-        /// </summary>
-        /// <param name="code">Status code.</param>
-        /// <param name="status">Status message.</param>
-        private void WriteOutputStatus(int code, string status)
-        {
-            outputWriter.WriteStartElement("status");
-            try
-            {
-                outputWriter.WriteAttributeString("code", code.ToString());
-                outputWriter.WriteValue(status);
-            }
-            finally
-            {
-                outputWriter.WriteEndElement();
-            }
-        }
+        #endregion
     }
 }

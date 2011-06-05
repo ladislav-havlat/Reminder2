@@ -17,7 +17,7 @@ namespace LH.Reminder2.Server
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-    public class GetTasks : IHttpHandler
+    public class GetTasks : GenericHandler
     {
         public enum TasksRequestType
         {
@@ -25,52 +25,38 @@ namespace LH.Reminder2.Server
             Unchecked,
         };
 
-        public void ProcessRequest(HttpContext context)
+        protected override void InternalProcessRequest(HttpContext context)
         {
-            context.Response.ContentType = "application/xml";
-            XmlTextWriter respWriter = new XmlTextWriter(context.Response.Output);
             Reminder2DataContext ctx = new Reminder2DataContext();
-            respWriter.Formatting = Formatting.Indented;
-
-            respWriter.WriteStartDocument(true);
-            respWriter.WriteStartElement("reminder");
-
-            IQueryable<Task> tasks = null;
-            DateTime utcNow = DateTime.UtcNow;
-            switch (RequestType)
+            try
             {
-                case TasksRequestType.Recent:
-                    //select tasks that are either less than 2 days old or not checked
-                    tasks = from Task t in ctx.Tasks
-                            where t.User.UserName == context.User.Identity.Name &&
-                                  (utcNow - t.DateTime < new TimeSpan(2, 0, 0, 0) || !t.Checked)
-                            select t;
-                    break;
+                IQueryable<Task> tasks = null;
+                DateTime utcNow = DateTime.UtcNow;
+                switch (RequestType)
+                {
+                    case TasksRequestType.Recent:
+                        //select tasks that are either less than 2 days old or not checked
+                        tasks = from Task t in ctx.Tasks
+                                where t.User.UserName == context.User.Identity.Name &&
+                                      (utcNow - t.DateTime < new TimeSpan(2, 0, 0, 0) || !t.Checked)
+                                select t;
+                        break;
 
-                case TasksRequestType.Unchecked:
-                    //select all unchecked tasks
-                    tasks = from Task t in ctx.Tasks
-                            where t.User.UserName == context.User.Identity.Name &&
-                                  !t.Checked
-                            select t;
-                    break;
+                    case TasksRequestType.Unchecked:
+                        //select all unchecked tasks
+                        tasks = from Task t in ctx.Tasks
+                                where t.User.UserName == context.User.Identity.Name &&
+                                      !t.Checked
+                                select t;
+                        break;
+                }
+
+                if (tasks != null)
+                    WriteTasks(tasks);
             }
-
-            if (tasks != null)
+            catch (Exception ex)
             {
-                respWriter.WriteStartElement("tasks");
-                OutputTasks(respWriter, tasks);
-                respWriter.WriteEndElement();
-            }
-
-            respWriter.WriteEndDocument();
-        }
-
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
+                WriteOutputStatus(CommonStatusCode.ServerError, string.Format("Could not retrieve tasks. {0}", ex.Message));
             }
         }
 
@@ -89,19 +75,6 @@ namespace LH.Reminder2.Server
                     return TasksRequestType.Unchecked;
                 else
                     return TasksRequestType.Recent; //default
-            }
-        }
-
-        private void OutputTasks(XmlWriter writer, IEnumerable<Task> tasks)
-        {
-            foreach (Task t in tasks)
-            {
-                writer.WriteStartElement("task");
-                writer.WriteAttributeString("id", t.idTask.ToString());
-                writer.WriteElementString("message", t.Message);
-                writer.WriteElementString("dateTime", t.DateTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                writer.WriteElementString("checked", t.Checked.ToString());
-                writer.WriteEndElement();
             }
         }
     }
