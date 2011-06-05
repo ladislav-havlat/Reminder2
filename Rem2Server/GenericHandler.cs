@@ -67,9 +67,14 @@ namespace LH.Reminder2.Server
                 xmlOutput.WriteAttributeString("version", "1.0");
 
                 if (CheckParams(context))
-                {
-                    InternalProcessRequest(context);
-                }
+                    try
+                    {
+                        InternalProcessRequest(context);
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteOutputStatus(CommonStatusCode.ServerError, string.Format("Unknown server error. {0}", ex.Message));
+                    }
                 else
                     WriteOutputStatus(CommonStatusCode.BadRequest, "One or more of the required parameters is missing or invalid.");
             }
