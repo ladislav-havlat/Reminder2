@@ -19,6 +19,8 @@ namespace LH.Reminder2.Server
     {
         OK = 200,
         BadRequest = 400,
+        Forbidden = 401,
+        NotFound = 404,
         ServerError = 500
     }
 

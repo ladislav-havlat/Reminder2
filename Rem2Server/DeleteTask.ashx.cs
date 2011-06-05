@@ -21,21 +21,32 @@ namespace LH.Reminder2.Server
         {
             Reminder2DataContext dataCtx = new Reminder2DataContext();
             var query = from Task t in dataCtx.Tasks
-                        where t.idTask == TaskID &&
-                              t.User.UserName == context.User.Identity.Name
-                        select t;
+                        where t.idTask == TaskID
+                        select new
+                        {
+                            Task = t,
+                            UserName = t.User.UserName
+                        };
 
-            if (query.Count() > 0)
+            var result = query.FirstOrDefault();
+            if (result != null)
                 try
                 {
-                    query.First().Deleted = true;
-                    dataCtx.SubmitChanges();
-                    WriteOutputStatus(CommonStatusCode.OK, "OK.");
+                    if (result.UserName.Equals(context.User.Identity.Name, StringComparison.OrdinalIgnoreCase))
+                    {
+                        result.Task.Deleted = true;
+                        dataCtx.SubmitChanges();
+                        WriteOutputStatus(CommonStatusCode.OK, "OK.");
+                    }
+                    else
+                        WriteOutputStatus(CommonStatusCode.Forbidden, "You are not allowed to delete this task.");
                 }
                 catch (Exception ex)
                 {
                     WriteOutputStatus(CommonStatusCode.ServerError, string.Format("Couldn't delete task. {0}", ex.Message));
                 }
+            else
+                WriteOutputStatus(CommonStatusCode.NotFound, "Task not found.");
         }
 
         protected override bool CheckParams(HttpContext context)
