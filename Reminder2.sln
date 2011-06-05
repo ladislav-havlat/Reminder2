@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rem2Server", "Rem2Server\Rem2Server.csproj", "{EE9E18AB-87CD-468A-A02C-C37CA88024B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rem2Client", "Rem2Client\Rem2Client.csproj", "{D4ECC7B1-4BCC-416E-87A7-0B12222A6D67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{EE9E18AB-87CD-468A-A02C-C37CA88024B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE9E18AB-87CD-468A-A02C-C37CA88024B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE9E18AB-87CD-468A-A02C-C37CA88024B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4ECC7B1-4BCC-416E-87A7-0B12222A6D67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4ECC7B1-4BCC-416E-87A7-0B12222A6D67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4ECC7B1-4BCC-416E-87A7-0B12222A6D67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4ECC7B1-4BCC-416E-87A7-0B12222A6D67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
