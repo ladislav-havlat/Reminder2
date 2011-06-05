@@ -65,6 +65,9 @@
     </Compile>
     <Compile Include="Auth\HTTPAuthModule.cs" />
     <Compile Include="Auth\MembershipProvider.cs" />
+    <Compile Include="CheckTask.ashx.cs">
+      <DependentUpon>CheckTask.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Data\Reminder2.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddTask.ashx" />
+    <Content Include="CheckTask.ashx" />
     <None Include="Data\Reminder2.dbml.layout">
       <DependentUpon>Reminder2.dbml</DependentUpon>
     </None>
