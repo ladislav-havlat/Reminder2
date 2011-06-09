@@ -48,6 +48,7 @@ namespace LH.Reminder2.Client.Data
             item.Text = message;
             item.SubItems.Add(dateTime.ToString());
             item.SubItems.Add(IsChecked.ToString());
+            item.Tag = this;
             return item;
         }
     }
