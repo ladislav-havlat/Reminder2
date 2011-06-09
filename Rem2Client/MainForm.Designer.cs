@@ -41,6 +41,7 @@
             this.getTasksButton = new System.Windows.Forms.Button();
             this.userNameTextBox = new System.Windows.Forms.TextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.uncheckTaskMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasksContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,21 +102,22 @@
             // 
             this.tasksContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.checkTaskMenuItem,
+            this.uncheckTaskMenuItem,
             this.deleteTaskMenuItem});
             this.tasksContextMenuStrip.Name = "tasksContextMenuStrip";
-            this.tasksContextMenuStrip.Size = new System.Drawing.Size(158, 70);
+            this.tasksContextMenuStrip.Size = new System.Drawing.Size(171, 92);
             // 
             // checkTaskMenuItem
             // 
             this.checkTaskMenuItem.Name = "checkTaskMenuItem";
-            this.checkTaskMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.checkTaskMenuItem.Size = new System.Drawing.Size(170, 22);
             this.checkTaskMenuItem.Text = "CheckTask.ashx";
             this.checkTaskMenuItem.Click += new System.EventHandler(this.checkTaskMenuItem_Click);
             // 
             // deleteTaskMenuItem
             // 
             this.deleteTaskMenuItem.Name = "deleteTaskMenuItem";
-            this.deleteTaskMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.deleteTaskMenuItem.Size = new System.Drawing.Size(170, 22);
             this.deleteTaskMenuItem.Text = "DeleteTask.ashx";
             this.deleteTaskMenuItem.Click += new System.EventHandler(this.deleteTaskMenuItem_Click);
             // 
@@ -145,6 +147,13 @@
             this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(174, 20);
             this.passwordTextBox.TabIndex = 5;
+            // 
+            // uncheckTaskMenuItem
+            // 
+            this.uncheckTaskMenuItem.Name = "uncheckTaskMenuItem";
+            this.uncheckTaskMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.uncheckTaskMenuItem.Text = "UncheckTask.ashx";
+            this.uncheckTaskMenuItem.Click += new System.EventHandler(this.uncheckTaskMenuItem_Click);
             // 
             // MainForm
             // 
@@ -179,5 +188,6 @@
         private System.Windows.Forms.ContextMenuStrip tasksContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem checkTaskMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteTaskMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uncheckTaskMenuItem;
     }
 }

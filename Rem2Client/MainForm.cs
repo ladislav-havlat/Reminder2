@@ -89,6 +89,19 @@ namespace LH.Reminder2.Client
             }
         }
 
+        private void uncheckTaskMenuItem_Click(object sender, EventArgs e)
+        {
+            Task task = null;
+            if (tasksListBox.SelectedIndices.Count > 0)
+                task = localTasks[tasksListBox.SelectedIndices[0]];
+
+            if (task != null)
+            {
+                string queryString = string.Format("id={0}", task.Id);
+                SendRequest(string.Format("/UncheckTask.ashx?{0}", queryString), GenericStatusCallback);
+            }
+        }
+
         private void GenericStatusCallback(IAsyncResult ar)
         {
             WebRequest request = ar.AsyncState as WebRequest;
