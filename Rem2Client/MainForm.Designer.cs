@@ -31,17 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.serverBaseTextBox = new System.Windows.Forms.TextBox();
-            this.tasksListBox = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.tasksContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.checkTaskMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uncheckTaskMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteTaskMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getTasksButton = new System.Windows.Forms.Button();
             this.userNameTextBox = new System.Windows.Forms.TextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
-            this.uncheckTaskMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tasksView = new LH.Reminder2.Client.Controls.TasksView();
             this.tasksContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,40 +61,6 @@
             this.serverBaseTextBox.TabIndex = 1;
             this.serverBaseTextBox.Text = "http://localhost:62237/";
             // 
-            // tasksListBox
-            // 
-            this.tasksListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tasksListBox.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.tasksListBox.ContextMenuStrip = this.tasksContextMenuStrip;
-            this.tasksListBox.FullRowSelect = true;
-            this.tasksListBox.Location = new System.Drawing.Point(12, 64);
-            this.tasksListBox.Name = "tasksListBox";
-            this.tasksListBox.Size = new System.Drawing.Size(646, 282);
-            this.tasksListBox.TabIndex = 2;
-            this.tasksListBox.UseCompatibleStateImageBehavior = false;
-            this.tasksListBox.View = System.Windows.Forms.View.Details;
-            this.tasksListBox.VirtualMode = true;
-            this.tasksListBox.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.tasksListBox_RetrieveVirtualItem);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Message";
-            this.columnHeader1.Width = 400;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "DateTime";
-            this.columnHeader2.Width = 150;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Checked";
-            // 
             // tasksContextMenuStrip
             // 
             this.tasksContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -105,7 +68,7 @@
             this.uncheckTaskMenuItem,
             this.deleteTaskMenuItem});
             this.tasksContextMenuStrip.Name = "tasksContextMenuStrip";
-            this.tasksContextMenuStrip.Size = new System.Drawing.Size(171, 92);
+            this.tasksContextMenuStrip.Size = new System.Drawing.Size(171, 70);
             // 
             // checkTaskMenuItem
             // 
@@ -113,6 +76,13 @@
             this.checkTaskMenuItem.Size = new System.Drawing.Size(170, 22);
             this.checkTaskMenuItem.Text = "CheckTask.ashx";
             this.checkTaskMenuItem.Click += new System.EventHandler(this.checkTaskMenuItem_Click);
+            // 
+            // uncheckTaskMenuItem
+            // 
+            this.uncheckTaskMenuItem.Name = "uncheckTaskMenuItem";
+            this.uncheckTaskMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.uncheckTaskMenuItem.Text = "UncheckTask.ashx";
+            this.uncheckTaskMenuItem.Click += new System.EventHandler(this.uncheckTaskMenuItem_Click);
             // 
             // deleteTaskMenuItem
             // 
@@ -148,22 +118,25 @@
             this.passwordTextBox.Size = new System.Drawing.Size(174, 20);
             this.passwordTextBox.TabIndex = 5;
             // 
-            // uncheckTaskMenuItem
+            // tasksView
             // 
-            this.uncheckTaskMenuItem.Name = "uncheckTaskMenuItem";
-            this.uncheckTaskMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.uncheckTaskMenuItem.Text = "UncheckTask.ashx";
-            this.uncheckTaskMenuItem.Click += new System.EventHandler(this.uncheckTaskMenuItem_Click);
+            this.tasksView.Data = null;
+            this.tasksView.FullRowSelect = true;
+            this.tasksView.Location = new System.Drawing.Point(12, 75);
+            this.tasksView.Name = "tasksView";
+            this.tasksView.Size = new System.Drawing.Size(646, 271);
+            this.tasksView.TabIndex = 6;
+            this.tasksView.UseCompatibleStateImageBehavior = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(670, 387);
+            this.Controls.Add(this.tasksView);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.userNameTextBox);
             this.Controls.Add(this.getTasksButton);
-            this.Controls.Add(this.tasksListBox);
             this.Controls.Add(this.serverBaseTextBox);
             this.Controls.Add(this.label1);
             this.Name = "MainForm";
@@ -178,10 +151,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox serverBaseTextBox;
-        private System.Windows.Forms.ListView tasksListBox;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Button getTasksButton;
         private System.Windows.Forms.TextBox userNameTextBox;
         private System.Windows.Forms.TextBox passwordTextBox;
@@ -189,5 +158,6 @@
         private System.Windows.Forms.ToolStripMenuItem checkTaskMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteTaskMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uncheckTaskMenuItem;
+        private LH.Reminder2.Client.Controls.TasksView tasksView;
     }
 }

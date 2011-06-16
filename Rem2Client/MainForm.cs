@@ -21,6 +21,7 @@ namespace LH.Reminder2.Client
         {
             InitializeComponent();
             localTasks = new TaskList();
+            tasksView.Data = localTasks;
         }
 
         private void SendRequest(string handler, AsyncCallback callback)
@@ -37,7 +38,7 @@ namespace LH.Reminder2.Client
 
         private void getTasksButton_Click(object sender, EventArgs e)
         {
-            tasksListBox.BackColor = SystemColors.ButtonShadow;
+            tasksView.BackColor = SystemColors.ButtonShadow;
             SendRequest("/GetTasks.ashx", GetTasksCallback);
         }
 
@@ -51,8 +52,8 @@ namespace LH.Reminder2.Client
                     Invoke(new MethodInvoker(delegate() {
                         localTasks.Clear();
                         localTasks.ReadXmlStream(response.GetResponseStream());
-                        tasksListBox.VirtualListSize = localTasks.Count;
-                        tasksListBox.BackColor = SystemColors.Window;
+                        tasksView.DataChanged();
+                        tasksView.BackColor = SystemColors.Window;
                     }));
             }
         }
@@ -66,8 +67,8 @@ namespace LH.Reminder2.Client
         private void checkTaskMenuItem_Click(object sender, EventArgs e)
         {
             Task task = null;
-            if (tasksListBox.SelectedIndices.Count > 0)
-                task = localTasks[tasksListBox.SelectedIndices[0]];
+            if (tasksView.SelectedIndices.Count > 0)
+                task = localTasks[tasksView.SelectedIndices[0]];
 
             if (task != null)
             {
@@ -79,8 +80,8 @@ namespace LH.Reminder2.Client
         private void deleteTaskMenuItem_Click(object sender, EventArgs e)
         {
             Task task = null;
-            if (tasksListBox.SelectedIndices.Count > 0)
-                task = localTasks[tasksListBox.SelectedIndices[0]];
+            if (tasksView.SelectedIndices.Count > 0)
+                task = localTasks[tasksView.SelectedIndices[0]];
 
             if (task != null)
             {
@@ -92,8 +93,8 @@ namespace LH.Reminder2.Client
         private void uncheckTaskMenuItem_Click(object sender, EventArgs e)
         {
             Task task = null;
-            if (tasksListBox.SelectedIndices.Count > 0)
-                task = localTasks[tasksListBox.SelectedIndices[0]];
+            if (tasksView.SelectedIndices.Count > 0)
+                task = localTasks[tasksView.SelectedIndices[0]];
 
             if (task != null)
             {
